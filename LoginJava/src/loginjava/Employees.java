@@ -55,19 +55,22 @@ public class Employees {
         String[] arrNamadepan = namaDepan.split(" ");
         userName = arrNamadepan[0]+namaBelakang.substring(0, 2);
         if(cekUserName(userName, listPekerja)){
-            for(int i=0;i<arrNamadepan.length;i++){
-                userName = arrNamadepan[0]+arrNamadepan[arrNamadepan.length-i];
+            for(int i=arrNamadepan.length-1;i>=0;i--){
+                userName = arrNamadepan[0]+arrNamadepan[i].substring(0, 2);
+                if(!cekUserName(userName, listPekerja)){
+                    break;
+                }
             }
         }
         return userName;
     }
     
-    public void inputData(int no, String nama, String password) {
+    public void inputData(int no, String nama, String password, List<Employees> listPekerja) {
         this.idKaryawan = generateId(no);
         String[] namaLeng = nama.split(" ");
         namaDepan = generateNamaDepan(nama);
         namaBelakang = namaLeng[namaLeng.length-1];
-        userName = namaLeng[0] + namaBelakang.substring(0,2);
+        userName = generateUserName(namaDepan,namaBelakang,listPekerja);
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
   
     }

@@ -28,7 +28,7 @@ public class Main {
             String namaLengkap = new Scanner(System.in).nextLine();
             System.out.print("password : ");
             String password = new Scanner(System.in).nextLine();
-            siX.inputData(a+1, namaLengkap, password);
+            siX.inputData(a+1, namaLengkap, password, listPekerja);
             listPekerja.add(a,siX);
         }
         else if(pilih == 2) {
