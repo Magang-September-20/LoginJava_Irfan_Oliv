@@ -126,6 +126,15 @@ public class Employees {
             System.out.println("=============================");   
         }
     }
+    public void login (String userName, String Password,List<Employees> listPekerja){
+        for (Employees list : listPekerja) {
+            if(list.userName.equals(userName)== true && list.password.equals(BCrypt.checkpw(Password, BCrypt.hashpw(Password, BCrypt.gensalt())))){
+                System.out.println("Login Berhasil");
+            }else {
+                System.out.println("Login Gagal");
+            }
+        }
+    }
 //    public  void loginUser(String userName, String Password){
 //        if(userName.equals("admin") && password.equals("admin")){
 //         this

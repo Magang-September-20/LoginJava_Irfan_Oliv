@@ -46,11 +46,7 @@ public class Main {
             System.out.print("Password : ");
             passLogin = loginPass.nextLine();
             //siX.loginUser(userLogin, passLogin, listPekerja);
-            if(listPekerja.contains(userLogin)== true &&(BCrypt.checkpw(passLogin, BCrypt.hashpw(passLogin, BCrypt.gensalt()))== true)){
-                System.out.println("Login berhasil");
-            } else {
-                System.out.println("Login Gagal");
-            }
+            siX.login(userLogin, passLogin, listPekerja);
     } else System.out.println("Eror");
             
      
