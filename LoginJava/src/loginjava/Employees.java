@@ -15,54 +15,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Employees {
     private static final AtomicInteger count = new AtomicInteger(0);
-    private int idKaryawan;
+    private String idKaryawan;
     private String namaDepan;
     private String namaBelakang;
     private String userName;
     private String password;
-
-    public void setIdKaryawan(int idKaryawan) {
-        this.idKaryawan = idKaryawan;
-    }
-
-    public void setNamaDepan(String namaDepan) {
-        this.namaDepan = namaDepan;
-    }
-
-    public void setNamaBelakang(String namaBelakang) {
-        this.namaBelakang = namaBelakang;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getIdKaryawan() {
-        return idKaryawan;
-    }
-
-    public String getNamaDepan() {
-        return namaDepan;
-    }
-
-    public String getNamaBelakang() {
-        return namaBelakang;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
     
-    public void inputData(String nama, String password) {
-        this.idKaryawan = count.incrementAndGet();
+    
+    public void inputData(int no, String nama, String password) {
+        this.idKaryawan = " " +no;
         String[] namaLeng = nama.split(" ");
         if (namaLeng.length>2){
           this.namaDepan = namaLeng[0]+namaLeng[1];

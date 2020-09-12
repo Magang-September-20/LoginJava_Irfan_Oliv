@@ -18,29 +18,17 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         List<Employees> listPekerja = new ArrayList<>();
-
-        String S = BCrypt.gensalt();
-        Scanner pilihan = new Scanner(System.in);
-        int pilih;
-        int x = 1000;
-        for(int a=0; a<x;a++){
-        System.out.println("1. Add \n"
-                + "2. View \n"
-                + "3. Login \n"
-                +"==============================");
+        for(int a=0; ;a++){
+        System.out.println(" 1. Add \n 2. View \n 3. Login \n ==============================");
         System.out.print("Pilihan(1-3) : " );
-        pilih = pilihan.nextInt();
+        int pilih = new Scanner(System.in).nextInt();
         if (pilih == 1){
             Employees siX = new Employees();
-            Scanner nm = new Scanner(System.in);
-            Scanner pass = new Scanner(System.in);
-            String namaLengkap;
-            String password;
             System.out.print("Nama Lengkap : ");
-            namaLengkap = nm.nextLine();
+            String namaLengkap = new Scanner(System.in).nextLine();
             System.out.print("password : ");
-            password = pass.nextLine();
-            siX.inputData(namaLengkap, password);
+            String password = new Scanner(System.in).nextLine();
+            siX.inputData(a+1, namaLengkap, password);
             listPekerja.add(a,siX);
         }
         else if(pilih == 2) {
