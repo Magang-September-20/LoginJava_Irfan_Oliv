@@ -5,6 +5,9 @@
  */
 package loginjava;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author user
@@ -18,18 +21,11 @@ public class LoginJava {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println(padLeftZeros("10",4));
-        String kalimat = "aku cakep banget deh";
-        String[] listt = kalimat.split(" ");
-        for(int x = 0; x<listt.length-1;x++){
-            System.out.println(listt[x]);
-        }
-        System.out.println(listt.length); 
-        for (String coba : listt) {
-            System.out.println(coba);
-            if(coba.contains("aku")){
-                System.out.println("ada");
-            }else System.out.println("no");
-        }
+        
+        List<Employees> listPekerja = new ArrayList<>();
+        Employees siX = new Employees();
+        siX.setIdKaryawan("l");
+        
     }
     public static String padLeftZeros(String inputString, int length) {
         if (inputString.length() >= length) {

@@ -28,8 +28,8 @@ public class Main {
             String namaLengkap = new Scanner(System.in).nextLine();
             System.out.print("password : ");
             String password = new Scanner(System.in).nextLine();
-            siX.inputData(a+1, namaLengkap, password, listPekerja);
-            listPekerja.add(a,siX);
+            siX.inputData(namaLengkap, password, listPekerja);
+            listPekerja.add(siX);
             System.out.println("Penambahan Data berhasil");
         }
         else if(pilih == 2) {

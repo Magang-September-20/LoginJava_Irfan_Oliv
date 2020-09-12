@@ -14,13 +14,56 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author user
  */
 public class Employees {
+    private static final AtomicInteger count = new AtomicInteger(0); 
     private String idKaryawan;
     private String namaDepan="";
     private String namaBelakang;
     private String userName="";
     private String password;
+
+    public void setIdKaryawan(String idKaryawan) {
+        this.idKaryawan = idKaryawan;
+    }
+
+    public void setNamaDepan(String namaDepan) {
+        this.namaDepan = namaDepan;
+    }
+
+    public void setNamaBelakang(String namaBelakang) {
+        this.namaBelakang = namaBelakang;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     
-    String generateId(int no){
+    public String getIdKaryawan() {
+        return idKaryawan;
+    }
+
+    public String getNamaDepan() {
+        return namaDepan;
+    }
+
+    public String getNamaBelakang() {
+        return namaBelakang;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    
+    String generateId(){
+        int no = count.incrementAndGet(); 
         String strNo = no+"";
         StringBuilder sb = new StringBuilder();
         while (sb.length() < 5 - strNo.length()) {
@@ -32,7 +75,6 @@ public class Employees {
     
     String generateNamaDepan(String nama){
         String[] namaLeng = nama.split(" ");
-        System.out.println(namaLeng.length);
         if(namaLeng.length>1){
             for(int x = 0; x<namaLeng.length-1;x++){
                 namaDepan += namaLeng[x] + " ";
@@ -65,8 +107,8 @@ public class Employees {
         return userName;
     }
     
-    public void inputData(int no, String nama, String password, List<Employees> listPekerja) {
-        this.idKaryawan = generateId(no);
+    public void inputData(String nama, String password, List<Employees> listPekerja) {
+        this.idKaryawan = generateId();
         String[] namaLeng = nama.split(" ");
         namaDepan = generateNamaDepan(nama);
         namaBelakang = namaLeng[namaLeng.length-1];
