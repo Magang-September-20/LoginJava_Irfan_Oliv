@@ -14,25 +14,60 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author user
  */
 public class Employees {
-    private static final AtomicInteger count = new AtomicInteger(0);
     private String idKaryawan;
-    private String namaDepan;
+    private String namaDepan="";
     private String namaBelakang;
-    private String userName;
+    private String userName="";
     private String password;
     
+    String generateId(int no){
+        String strNo = no+"";
+        StringBuilder sb = new StringBuilder();
+        while (sb.length() < 5 - strNo.length()) {
+            sb.append('0');
+        }
+        sb.append(strNo);
+        return sb.toString();
+    }
+    
+    String generateNamaDepan(String nama){
+        String[] namaLeng = nama.split(" ");
+        System.out.println(namaLeng.length);
+        if(namaLeng.length>1){
+            for(int x = 0; x<namaLeng.length-1;x++){
+                namaDepan += namaLeng[x] + " ";
+            }
+        }
+        else{
+            namaDepan += nama;
+        }
+        return namaDepan;
+    }
+    Boolean cekUserName(String username, List<Employees> listPekerja){
+        for (Employees list : listPekerja) {
+            if(list.userName.equals(username)){
+                return true;
+            }
+        }
+        return false;
+    }
+    String generateUserName(String namaDepan, String namaBelakang, List<Employees> listPekerja){
+        String[] arrNamadepan = namaDepan.split(" ");
+        userName = arrNamadepan[0]+namaBelakang.substring(0, 2);
+        if(cekUserName(userName, listPekerja)){
+            for(int i=0;i<arrNamadepan.length;i++){
+                userName = arrNamadepan[0]+arrNamadepan[arrNamadepan.length-i];
+            }
+        }
+        return userName;
+    }
     
     public void inputData(int no, String nama, String password) {
-        this.idKaryawan = " " +no;
+        this.idKaryawan = generateId(no);
         String[] namaLeng = nama.split(" ");
-        if (namaLeng.length>2){
-          this.namaDepan = namaLeng[0]+namaLeng[1];
-          this.namaBelakang = namaLeng[2]+namaLeng[3];
-        } else {
-            this.namaDepan = namaLeng[0];
-            this.namaBelakang = namaLeng[1];
-        }
-        this.userName = namaDepan + namaBelakang.substring(0,2);
+        namaDepan = generateNamaDepan(nama);
+        namaBelakang = namaLeng[namaLeng.length-1];
+        userName = namaLeng[0] + namaBelakang.substring(0,2);
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
   
     }
@@ -50,7 +85,7 @@ public class Employees {
 //        if(userName.equals("admin") && password.equals("admin")){
 //         this
 //            
-        }
+}
     
     
 
