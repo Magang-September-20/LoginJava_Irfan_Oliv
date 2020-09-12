@@ -128,7 +128,7 @@ public class Employees {
     }
     public void login (String userName, String Password,List<Employees> listPekerja){
         for (Employees list : listPekerja) {
-            if(list.userName.equals(userName)== true && list.password.equals(BCrypt.checkpw(Password, BCrypt.hashpw(Password, BCrypt.gensalt())))){
+            if(list.userName.equals(userName)== true && (BCrypt.checkpw(Password,list.password) )== true){
                 System.out.println("Login Berhasil");
             }else {
                 System.out.println("Login Gagal");
