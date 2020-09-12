@@ -14,41 +14,63 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author user
  */
 public class Employees {
-    private static final AtomicInteger count = new AtomicInteger(0);
     private String idKaryawan;
-    private String namaDepan;
+    private String namaDepan="";
     private String namaBelakang;
-    private String userName;
+    private String userName="";
     private String password;
-
-    public String getUserName() {
+    
+    String generateId(int no){
+        String strNo = no+"";
+        StringBuilder sb = new StringBuilder();
+        while (sb.length() < 5 - strNo.length()) {
+            sb.append('0');
+        }
+        sb.append(strNo);
+        return sb.toString();
+    }
+    
+    String generateNamaDepan(String nama){
+        String[] namaLeng = nama.split(" ");
+        System.out.println(namaLeng.length);
+        if(namaLeng.length>1){
+            for(int x = 0; x<namaLeng.length-1;x++){
+                namaDepan += namaLeng[x] + " ";
+            }
+        }
+        else{
+            namaDepan += nama;
+        }
+        return namaDepan;
+    }
+    Boolean cekUserName(String username, List<Employees> listPekerja){
+        for (Employees list : listPekerja) {
+            if(list.userName.equals(username)){
+                return true;
+            }
+        }
+        return false;
+    }
+    String generateUserName(String namaDepan, String namaBelakang, List<Employees> listPekerja){
+        String[] arrNamadepan = namaDepan.split(" ");
+        userName = arrNamadepan[0]+namaBelakang.substring(0, 2);
+        if(cekUserName(userName, listPekerja)){
+            for(int i=arrNamadepan.length-1;i>=0;i--){
+                userName = arrNamadepan[0]+arrNamadepan[i].substring(0, 2);
+                if(!cekUserName(userName, listPekerja)){
+                    break;
+                }
+            }
+        }
         return userName;
     }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
     
-    
-    public void inputData(int no, String nama, String password) {
-        this.idKaryawan = " " +no;
+    public void inputData(int no, String nama, String password, List<Employees> listPekerja) {
+        this.idKaryawan = generateId(no);
         String[] namaLeng = nama.split(" ");
-        if (namaLeng.length>2){
-          this.namaDepan = namaLeng[0]+namaLeng[1];
-          this.namaBelakang = namaLeng[2]+namaLeng[3];
-        } else {
-            this.namaDepan = namaLeng[0];
-            this.namaBelakang = namaLeng[1];
-        }
-        this.userName = namaDepan + namaBelakang.substring(0,2);
+        namaDepan = generateNamaDepan(nama);
+        namaBelakang = namaLeng[namaLeng.length-1];
+        userName = generateUserName(namaDepan,namaBelakang,listPekerja);
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
   
     }
@@ -62,17 +84,12 @@ public class Employees {
             System.out.println("=============================");   
         }
     }
-//    public  void loginUser(String userName, String Password, List<Employees> listPekerja){
-//       for (Employees employees : listPekerja ) {
-//           if ((listPekerja.getUserName().constaint(userName) == true) && (BCrypt.checkpw(Password, BCrypt.hashpw(password, BCrypt.gensalt()))== true)) {
-//               System.out.println("Login Berhasil");
-//           } else {
-//               System.out.println("Login Gagal");
-//           }
+//    public  void loginUser(String userName, String Password){
+//        if(userName.equals("admin") && password.equals("admin")){
+//         this
 //            
-//       }
-//        }
 }
+    
     
 
 
