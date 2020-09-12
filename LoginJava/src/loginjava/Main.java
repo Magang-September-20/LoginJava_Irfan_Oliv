@@ -30,6 +30,7 @@ public class Main {
             String password = new Scanner(System.in).nextLine();
             siX.inputData(a+1, namaLengkap, password);
             listPekerja.add(a,siX);
+            System.out.println("Penambahan Data berhasil");
         }
         else if(pilih == 2) {
             Employees siX = new Employees();
@@ -44,9 +45,12 @@ public class Main {
             userLogin = loginUser.nextLine();
             System.out.print("Password : ");
             passLogin = loginPass.nextLine();
-            if(BCrypt.checkpw(passLogin, BCrypt.hashpw(passLogin, BCrypt.gensalt()))== true){
-            System.out.println("Login Berhasil");
-        } else System.out.println("Login Gagal");
+            //siX.loginUser(userLogin, passLogin, listPekerja);
+            if(listPekerja.contains(userLogin)== true &&(BCrypt.checkpw(passLogin, BCrypt.hashpw(passLogin, BCrypt.gensalt()))== true)){
+                System.out.println("Login berhasil");
+            } else {
+                System.out.println("Login Gagal");
+            }
     } else System.out.println("Eror");
             
      

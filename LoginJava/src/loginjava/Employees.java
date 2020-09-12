@@ -20,6 +20,22 @@ public class Employees {
     private String namaBelakang;
     private String userName;
     private String password;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     
     
     public void inputData(int no, String nama, String password) {
@@ -46,12 +62,17 @@ public class Employees {
             System.out.println("=============================");   
         }
     }
-//    public  void loginUser(String userName, String Password){
-//        if(userName.equals("admin") && password.equals("admin")){
-//         this
+//    public  void loginUser(String userName, String Password, List<Employees> listPekerja){
+//       for (Employees employees : listPekerja ) {
+//           if ((listPekerja.getUserName().constaint(userName) == true) && (BCrypt.checkpw(Password, BCrypt.hashpw(password, BCrypt.gensalt()))== true)) {
+//               System.out.println("Login Berhasil");
+//           } else {
+//               System.out.println("Login Gagal");
+//           }
 //            
-        }
-    
+//       }
+//        }
+}
     
 
 
