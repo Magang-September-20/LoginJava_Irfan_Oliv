@@ -21,7 +21,7 @@ public class Main {
         List<Employees> listPekerja = new ArrayList<>();
         Employees siX = new Employees();
         for(int a=0; ;a++){
-            System.out.println(" 1. Add \n 2. View \n 3. Login \n ==============================");
+            System.out.println(" ==============================\n 1. Add \n 2. View \n 3. Login \n ==============================");
             System.out.print("Pilihan(1-3) : " );
             try {
                 int pilih = new Scanner(System.in).nextInt();
@@ -31,10 +31,10 @@ public class Main {
                             Scanner input = new Scanner(System.in);
                             System.out.print("Nama Lengkap : ");
                             String namaLengkap = input.nextLine();
-                            System.out.print("password : ");
+                            System.out.print("Password : ");
                             String password = input.nextLine();   
                             listPekerja.add(new Employees(namaLengkap, password, listPekerja));
-                            System.out.println("Penambahan Data berhasil");
+                            System.out.println("Penambahan Data Berhasil");
                             break;
                         }
                     case 2:
@@ -44,10 +44,11 @@ public class Main {
                         }
                     case 3:
                         {
+                            Scanner input = new Scanner(System.in);
                             System.out.print("User Name : ");
-                            String userLogin = new Scanner(System.in).nextLine();
+                            String userLogin = input.nextLine();
                             System.out.print("Password : ");
-                            String passLogin = new Scanner(System.in).nextLine();
+                            String passLogin = input.nextLine();
                             siX.login(userLogin, passLogin, listPekerja);
                             break;
                         }

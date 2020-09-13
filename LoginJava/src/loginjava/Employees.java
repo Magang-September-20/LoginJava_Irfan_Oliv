@@ -20,6 +20,12 @@ public class Employees {
     private String username="";
     private String password;
 
+    /**
+     * Untuk mendapatkan Id Karyawan
+     * secara otomatis
+     * 
+     * @return "00001", "00002", "00003",... 
+     */
     String generateId(){
         int no = count.incrementAndGet(); 
         String strNo = no+"";
@@ -30,7 +36,12 @@ public class Employees {
         sb.append(strNo);
         return sb.toString();
     }
-    
+    /**
+     * Untuk mendapatkan nama depan
+     * @param nama = "Muhamad Irfan Scheidzer"
+     * @return 
+     * Muhamad Irfan
+     */
     String generateNamaDepan(String nama){
         String[] namaLeng = nama.split(" ");
         if(namaLeng.length>1){
