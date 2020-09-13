@@ -22,9 +22,8 @@ public class LoginJava {
         // TODO code application logic here
         System.out.println(padLeftZeros("10",4));
         
-        List<Employees> listPekerja = new ArrayList<>();
-        Employees siX = new Employees();
-        siX.setIdKaryawan("l");
+        String id = "00001";
+        System.out.println();
         
     }
     public static String padLeftZeros(String inputString, int length) {

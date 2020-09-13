@@ -6,6 +6,7 @@
 package loginjava;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 //import com.metrodataacademy.tools.BCrypt;
@@ -16,45 +17,49 @@ import java.util.Scanner;
  * @author user
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         List<Employees> listPekerja = new ArrayList<>();
+        Employees siX = new Employees();
         for(int a=0; ;a++){
-        System.out.println(" 1. Add \n 2. View \n 3. Login \n ==============================");
-        System.out.print("Pilihan(1-3) : " );
-        int pilih = new Scanner(System.in).nextInt();
-        if (pilih == 1){
-            Employees siX = new Employees();
-            System.out.print("Nama Lengkap : ");
-            String namaLengkap = new Scanner(System.in).nextLine();
-            System.out.print("password : ");
-            String password = new Scanner(System.in).nextLine();
-            siX.inputData(namaLengkap, password, listPekerja);
-            listPekerja.add(siX);
-            System.out.println("Penambahan Data berhasil");
+            System.out.println(" 1. Add \n 2. View \n 3. Login \n ==============================");
+            System.out.print("Pilihan(1-3) : " );
+            try {
+                int pilih = new Scanner(System.in).nextInt();
+                switch (pilih) {
+                    case 1:
+                        {
+                            Scanner input = new Scanner(System.in);
+                            System.out.print("Nama Lengkap : ");
+                            String namaLengkap = input.nextLine();
+                            System.out.print("password : ");
+                            String password = input.nextLine();   
+                            listPekerja.add(new Employees(namaLengkap, password, listPekerja));
+                            System.out.println("Penambahan Data berhasil");
+                            break;
+                        }
+                    case 2:
+                        {
+                            siX.displayData(listPekerja);
+                            break;
+                        }
+                    case 3:
+                        {
+                            System.out.print("User Name : ");
+                            String userLogin = new Scanner(System.in).nextLine();
+                            System.out.print("Password : ");
+                            String passLogin = new Scanner(System.in).nextLine();
+                            siX.login(userLogin, passLogin, listPekerja);
+                            break;
+                        }
+                    default:
+                        System.out.println("Eror");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Inputan harus angka");
+            }     
         }
-        else if(pilih == 2) {
-            Employees siX = new Employees();
-            siX.displayData(listPekerja);
-        } else if (pilih ==3 ){
-            Employees siX = new Employees();
-            Scanner loginUser = new Scanner(System.in);
-            Scanner loginPass = new Scanner(System.in);
-            String userLogin;
-            String passLogin;
-            System.out.print("User Name : ");
-            userLogin = loginUser.nextLine();
-            System.out.print("Password : ");
-            passLogin = loginPass.nextLine();
-            //siX.loginUser(userLogin, passLogin, listPekerja);
-            siX.login(userLogin, passLogin, listPekerja);
-    } else System.out.println("Eror");
-            
-                    
-     
+    }   
 }
-    }
-    
-}
-//        System.out.println(S);
-//      //  System.out.println(listPekerja.get(1).getIdKaryawan());
+
             

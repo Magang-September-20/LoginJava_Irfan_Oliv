@@ -5,7 +5,6 @@
  */
 package loginjava;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -18,50 +17,9 @@ public class Employees {
     private String idKaryawan;
     private String namaDepan="";
     private String namaBelakang;
-    private String userName="";
+    private String username="";
     private String password;
 
-    public void setIdKaryawan(String idKaryawan) {
-        this.idKaryawan = idKaryawan;
-    }
-
-    public void setNamaDepan(String namaDepan) {
-        this.namaDepan = namaDepan;
-    }
-
-    public void setNamaBelakang(String namaBelakang) {
-        this.namaBelakang = namaBelakang;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    
-    public String getIdKaryawan() {
-        return idKaryawan;
-    }
-
-    public String getNamaDepan() {
-        return namaDepan;
-    }
-
-    public String getNamaBelakang() {
-        return namaBelakang;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-    
     String generateId(){
         int no = count.incrementAndGet(); 
         String strNo = no+"";
@@ -87,7 +45,7 @@ public class Employees {
     }
     Boolean cekUserName(String username, List<Employees> listPekerja){
         for (Employees list : listPekerja) {
-            if(list.userName.equals(username)){
+            if(list.username.equals(username)){
                 return true;
             }
         }
@@ -95,24 +53,34 @@ public class Employees {
     }
     String generateUserName(String namaDepan, String namaBelakang, List<Employees> listPekerja){
         String[] arrNamadepan = namaDepan.split(" ");
-        userName = arrNamadepan[0]+namaBelakang.substring(0, 2);
-        if(cekUserName(userName, listPekerja)){
-            for(int i=arrNamadepan.length-1;i>=0;i--){
-                userName = arrNamadepan[0]+arrNamadepan[i].substring(0, 2);
-                if(!cekUserName(userName, listPekerja)){
-                    break;
+        try {
+            username = arrNamadepan[0]+namaBelakang.substring(0, 2);
+            if(cekUserName(username, listPekerja)){
+                for(int i=arrNamadepan.length-1;i>=0;i--){
+                    username = arrNamadepan[0]+arrNamadepan[i].substring(0, 2);
+                    if(!cekUserName(username, listPekerja)){
+                        break;
+                    }
                 }
             }
+        } catch (StringIndexOutOfBoundsException e) {
+            username+=arrNamadepan[0]+idKaryawan;
         }
-        return userName;
+        
+        if(cekUserName(username, listPekerja)){
+            username+=idKaryawan;
+        }
+        return username;
     }
-    
-    public void inputData(String nama, String password, List<Employees> listPekerja) {
+    public Employees(){
+        
+    }
+    public Employees(String nama, String password, List<Employees> listPekerja) {
         this.idKaryawan = generateId();
         String[] namaLeng = nama.split(" ");
         namaDepan = generateNamaDepan(nama);
         namaBelakang = namaLeng[namaLeng.length-1];
-        userName = generateUserName(namaDepan,namaBelakang,listPekerja);
+        username = generateUserName(namaDepan,namaBelakang,listPekerja);
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
   
     }
@@ -121,24 +89,25 @@ public class Employees {
             System.out.println("Id Karyawan     : " + employees.idKaryawan);
             System.out.println("Nama Depan      : " + employees.namaDepan);
             System.out.println("Nama Belakang   : " + employees.namaBelakang);
-            System.out.println("Username        : " + employees.userName);
+            System.out.println("Username        : " + employees.username);
             System.out.println("Password        : " + employees.password);
             System.out.println("=============================");   
         }
     }
-    public void login (String userName, String Password,List<Employees> listPekerja){
+    public void login (String userName, String password,List<Employees> listPekerja){
+        boolean cek = false;
         for (Employees list : listPekerja) {
-            if(list.userName.equals(userName)== true && (BCrypt.checkpw(Password,list.password) )== true){
-                System.out.println("Login Berhasil");
+            if(list.username.equals(userName) && (BCrypt.checkpw(password,list.password))){
+                cek = true;
+                break;
             }else {
-                System.out.println("Login Gagal");
+                cek = false;
             }
         }
-    }
-//    public  void loginUser(String userName, String Password){
-//        if(userName.equals("admin") && password.equals("admin")){
-//         this
-//            
+        if(cek){
+            System.out.println("LOGIN BERHASIL");
+        }else System.out.println("LOGIN GAGAL");
+    }      
 }
     
     
