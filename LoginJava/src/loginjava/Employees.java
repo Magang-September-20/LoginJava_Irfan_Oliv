@@ -23,8 +23,8 @@ public class Employees {
     /**
      * Untuk mendapatkan Id Karyawan
      * secara otomatis
-     * 
      * @return "00001", "00002", "00003",... 
+     * author Irfan
      */
     String generateId(){
         int no = count.incrementAndGet(); 
@@ -41,12 +41,13 @@ public class Employees {
      * @param nama = "Muhamad Irfan Scheidzer"
      * @return 
      * Muhamad Irfan
+     * author Irfan
      */
     String generateNamaDepan(String nama){
-        String[] namaLeng = nama.split(" ");
-        if(namaLeng.length>1){
-            for(int x = 0; x<namaLeng.length-1;x++){
-                namaDepan += namaLeng[x] + " ";
+        String[] arrNama = nama.split(" ");
+        if(arrNama.length>1){
+            for(int x = 0; x<arrNama.length-1;x++){
+                namaDepan += arrNama[x] + " ";
             }
         }
         else{
@@ -54,6 +55,13 @@ public class Employees {
         }
         return namaDepan;
     }
+    /**
+     * Untuk mengecek apakah userName sudah ada dalam list
+     * @param username
+     * @param listPekerja
+     * @return 
+     * Author Irfan
+     */
     Boolean cekUserName(String username, List<Employees> listPekerja){
         for (Employees list : listPekerja) {
             if(list.username.equals(username)){
@@ -62,6 +70,14 @@ public class Employees {
         }
         return false;
     }
+    /**
+     * Untuk membuat username
+     * @param namaDepan = "Muhamad Irfan" 
+     * @param namaBelakang = "Scheidzer"
+     * @param listPekerja
+     * @return "Muhamad Sc", "Muhamad Ir", "Muhamad Mu", "Muhamad Mu 00004"
+     * Author Irfan
+     */
     String generateUserName(String namaDepan, String namaBelakang, List<Employees> listPekerja){
         String[] arrNamadepan = namaDepan.split(" ");
         try {
@@ -86,15 +102,32 @@ public class Employees {
     public Employees(){
         
     }
+    /**
+     * Untuk mengisi nilai pada object
+     * @param nama
+     * @param password
+     * @param listPekerja 
+     * Author Oliv
+     */
     public Employees(String nama, String password, List<Employees> listPekerja) {
         this.idKaryawan = generateId();
-        String[] namaLeng = nama.split(" ");
+        String[] arrNama = nama.split(" ");
         namaDepan = generateNamaDepan(nama);
-        namaBelakang = namaLeng[namaLeng.length-1];
+        namaBelakang = arrNama[arrNama.length-1];
         username = generateUserName(namaDepan,namaBelakang,listPekerja);
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
   
     }
+    /**
+     * Untuk menampilkan data yang ada pada list
+     * @param listPekerja 
+     * return : "Id Karyawan        : 00001"
+     *          "Nama Depan         : Muhamad Irfan"
+     *          "Nama Belakang      : Scheidzer"
+     *          "Username           : MuhamadSc"
+     *          "Password           : $2a$10$wmvwgESFol6vPeMo2sQ/Ku5oxvKg33u5V5YIm5GVCw3kVIo/416Te"
+     * Author Oliv
+     */
     public void displayData(List<Employees> listPekerja){
         for (Employees employees : listPekerja) {
             System.out.println("Id Karyawan     : " + employees.idKaryawan);
@@ -105,6 +138,16 @@ public class Employees {
             System.out.println("=============================");   
         }
     }
+    /**
+     * Untuk login
+     * @param userName
+     * @param password
+     * @param listPekerja
+     * return   :  "User Name   : MuhamadSc"
+     *             "Password    : muhamad"
+     *             "LOGIN BERHASIL"
+     * Author Irfan + Oliv
+     */
     public void login (String userName, String password,List<Employees> listPekerja){
         boolean cek = false;
         for (Employees list : listPekerja) {
